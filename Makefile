@@ -1,5 +1,5 @@
 CXX=g++
-FLAGS=-std=c++17 -Wall -lpthread
+FLAGS=-std=c++17 -Wall -lpthread -I./include
 
 BIN=main
 SRC=$(wildcard src/*.cpp)
@@ -11,7 +11,7 @@ all: $(OBJ)
 	$(CXX) $(FLAGS) -o $(BIN) $^
 
 $(DIREC_OBJ)/%.o: $(DIREC_SRC)/%.cpp
-	$(CXX) -c $< -o $@
+	$(CXX) $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f obj/*.o
