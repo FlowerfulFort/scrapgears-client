@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <cstdlib>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <pthread.h>
@@ -42,6 +43,7 @@ int main(void) {
     std::cout << "Listening.." << std::endl;
     listen(sock, 1);
     while(1) {
+        memset(buf, 0, sizeof(buf));
         ac = accept(sock, reinterpret_cast<struct sockaddr*>(&from), &size);
         if (ac < 0) {
             ERR("accept failed..\n");
@@ -58,6 +60,7 @@ int main(void) {
             "HTTP/1.1 200 OK\n"
             "Date: Fri, 24 Jun 2022 11:44:00 KST\n"
             "Server: Apache/2.2.3\n"
+            "Access-Control-Allow-Origin: *\n"
             "Content-Type: text/html\n"
             "Content-Length: 40\n"
             "Connection: close\n\n"
